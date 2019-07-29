@@ -3,15 +3,18 @@ class Matrix(object):
         lines = matrix_string.split('\n')
         a = []
         for i in lines:
-            b = []
-            for l in i.split():
-                b.append(l)
+            b = [int(l) for l in i.split()]
             a.append(b)
-         
         self.matrix = a
 
     def row(self, index):
-        
+
+        pass
 
     def column(self, index):
         pass
+
+
+matrix = Matrix("1 2\n3 4")
+print(matrix.matrix)
+   
