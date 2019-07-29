@@ -8,11 +8,10 @@ class Matrix(object):
         self.matrix = a
 
     def row(self, index):
-
-        pass
+        return self.matrix[index-1]
 
     def column(self, index):
-        pass
+        return [ r[index-1] for r in self.matrix]
 
 
 matrix = Matrix("1 2\n3 4")
