@@ -5,15 +5,10 @@ class Matrix(object):
         for i in lines:
             b = [int(l) for l in i.split()]
             a.append(b)
-        self.matrix = a
+        self.matrix = a:
 
     def row(self, index):
         return self.matrix[index-1]
 
     def column(self, index):
         return [ r[index-1] for r in self.matrix]
-
-
-matrix = Matrix("1 2\n3 4")
-print(matrix.matrix)
-   
