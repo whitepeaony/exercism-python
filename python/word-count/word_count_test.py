@@ -1,4 +1,5 @@
 import unittest
+import pytest
 
 from word_count import count_words
 
@@ -66,6 +67,13 @@ class WordCountTest(unittest.TestCase):
             count_words("Joe can't tell between 'large' and large."),
             {'joe': 1, "can't": 1, 'tell': 1, 'between': 1, 'large': 2,
              'and': 1}
+        )
+
+    @pytest.mark.skip(reason="no way of currently handling this")
+    def test_with_plural(self):
+        self.assertEqual(
+            count_words("parents'"),
+            {'parents\'': 1}
         )
 
     def test_multiple_spaces_not_detected_as_a_word(self):
