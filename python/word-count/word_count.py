@@ -1,9 +1,12 @@
 def count_words(sentence):
+    
     sentence = sentence.lower()
     words = {}
     shit = ',\n:!&@$%^&._'
+
     for s in shit:
         sentence = sentence.replace(s, ' ')
+
     for w in sentence.split():
         if w.endswith('\''):
             w = w[:-1]
