@@ -1,6 +1,6 @@
-base1 = "On the "  
-base2 = " day of Christmas my true love gave to me: " 
+base = "On the {} day of Christmas my true love gave to me: "
 last = "a Partridge in a Pear Tree."
+
 items = [
     "twelve Drummers Drumming, ",
     "eleven Pipers Piping, ",
@@ -13,30 +13,29 @@ items = [
     "four Calling Birds, ",
     "three French Hens, ",
     "two Turtle Doves, ",
-    "and a Partridge in a Pear Tree."
+    "and a Partridge in a Pear Tree.",
 ]
 
-days = [ 'second',
-'third',
-'fourth',
-'fifth',
-'sixth',
-'seventh',
-'eigth',
-'ninth',
-'tenth',
-'eleventh',
-'twelfth'
-]
+days = ['second',
+        'third',
+        'fourth',
+        'fifth',
+        'sixth',
+        'seventh',
+        'eighth',
+        'ninth',
+        'tenth',
+        'eleventh',
+        'twelfth',
+        ]
+
 
 def recite(start_verse, end_verse):
-    verses = [verse(i) for i in range(start_verse, end_verse + 1)]
-    return verses
-        
+    return [verse(i) for i in range(start_verse, end_verse + 1)]
+
 
 def verse(number):
     if number == 1:
-        return base1 + 'first' + base2 + last 
+        return base.format('first') + last
     var = ''.join(items[-number:])
-    return base1 + days[number - 2] + base2 + var
-
+    return base.format(days[number - 2]) + var
