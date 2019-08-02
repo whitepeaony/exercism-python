@@ -1,13 +1,9 @@
 def is_isogram(string):
 
     white_string = string.replace(' ', '').replace('-', '').lower()
+    b = [white_string.count(char) for char in white_string]
 
-    letters = list(white_string)
-
-    b = [letters.count(char) for char in letters]
-
-    if len(b) == 0:
+    if len(b) < 2:
         return True
     else:
-        return not max(b) > 1
-
+        return max(b) <= 1
