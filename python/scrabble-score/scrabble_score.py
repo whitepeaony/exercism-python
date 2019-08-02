@@ -1,23 +1,19 @@
 def score(word):
 
-    word = word.lower()
-    letters = {}
-
     scores = {
-        1: ['a', 'e', 'i', 'o', 'u', 'l', 'n', 'r', 's', 't'],
-        2: ['d', 'g'],
-        3: ['b', 'c', 'm', 'p'],
-        4: ['f', 'h', 'v', 'w', 'y'],
-        5: ['k'],
-        8: ['j', 'x'],
-        10: ['q', 'z']
+        1: 'aeioulnrst',
+        2: 'dg',
+        3: 'bcmp',
+        4: 'fhvwy',
+        5: 'k',
+        8: 'jx',
+        10: 'qz'
     }
 
     total = 0
-    for l in word:
+    for l in word.lower():
         for pts, group in scores.items():
             if l in group:
-                letters[l] = pts
-        total += letters.get(l, 0)
-
+                total += pts
+                break
     return total
