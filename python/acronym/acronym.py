@@ -1,6 +1,6 @@
 def abbreviate(words):
     words = words.upper()
-    
+
     crap = ',_-'
 
     for c in crap:
