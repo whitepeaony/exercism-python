@@ -3,22 +3,21 @@ def score(word):
     word = word.lower()
     letters = {}
 
-    scrabble = [
-        ['a', 'e', 'i', 'o', 'u', 'l', 'n', 'r', 's', 't'],
-        ['d', 'g'],
-        ['b', 'c', 'm', 'p'],
-        ['f', 'h', 'v', 'w', 'y'],
-        ['k'],
-        ['j', 'x'],
-        ['q', 'z']
-    ]
-    scores = [1, 2, 3, 4, 5, 8, 10]
+    scores = {
+        1: ['a', 'e', 'i', 'o', 'u', 'l', 'n', 'r', 's', 't'],
+        2: ['d', 'g'],
+        3: ['b', 'c', 'm', 'p'],
+        4: ['f', 'h', 'v', 'w', 'y'],
+        5: ['k'],
+        8: ['j', 'x'],
+        10: ['q', 'z']
+    }
 
     total = 0
     for l in word:
-        for i, s in zip(scrabble, scores):
-            if l in i:
-                letters[l] = s
+        for pts, group in scores.items():
+            if l in group:
+                letters[l] = pts
         total += letters.get(l, 0)
 
     return total
