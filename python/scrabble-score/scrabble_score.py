@@ -10,10 +10,12 @@ def score(word):
         10: 'qz'
     }
 
-    total = 0
-    for l in word.lower():
-        for pts, group in scores.items():
-            if l in group:
-                total += pts
-                break
-    return total
+    letters = {}
+    for score, group in scores.items():
+        for l in group:
+            letters[l] = score 
+                  
+    return sum([letters[l] for l in word.lower()])
+
+    
+
