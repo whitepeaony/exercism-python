@@ -1,6 +1,7 @@
 def two_fer(name = None):
-    if name == None:
-        return 'One for you, one for me.'
+    sentence = 'One for {}, one for me.'
+    if name is None:
+        return sentence.format('you')
     else:
-        return  'One for ' + name + ', one for me.' 
+        return  sentence.format(name)
 
