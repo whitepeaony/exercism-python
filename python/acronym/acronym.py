@@ -4,9 +4,6 @@ def abbreviate(words):
 
     for c in crap:
         words = words.replace(c, ' ')
-
-    acronym = ''
-
-    for w in words.split():
-        acronym += w[0]
-    return acronym.upper()
+    
+    separator = ''
+    return separator.join([w[0] for w in words.split()]).upper()     
