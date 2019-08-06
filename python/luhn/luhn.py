@@ -1,25 +1,38 @@
 class Luhn(object):
     def __init__(self, card_num):
         self.card_num = card_num.replace(' ', '')
+        self.card_num = [ch for ch in self.card_num]      
+
         
 
     def valid(self):
+        #print(self.card_num)
+
         if len(self.card_num) <= 1:
             return False
+
         else:
-            card = self.card_num.split()
+            card = self.card_num
+            card = [int(i) for i in card]
+
             for i in range(0, len(card), -2):
-                if 2 * i < 9:
-                    card[i] = 2*i
+                a = card[i]
+                if card[i] * 2 < 9:
+                    card.remove(a)
+                    card.insert(a * 2, i)
+                    
                 else:
-                    card[i] = 2*i - 9
+                    card.remove(a)
+                    card.insert(a * 2 - 9, i)
+                    
+
             sum = 0
             for n in card:
                 sum += int(n)
-            return sum % 10 == 0
+            return card
+            #sum % 10 == 0
                 
 
 
-print(Luhn("0859").valid())
-
+print(Luhn("055 444 285").valid())
 
