@@ -17,8 +17,6 @@ class Clock(object):
 
     def __add__(self, minutes):
         return Clock(self.h, self.m+minutes)
-    
+
     def __sub__(self, minutes):
         return Clock(self.h, self.m-minutes)
-
-    
