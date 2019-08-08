@@ -1,8 +1,6 @@
 def _time(hour, minute):
     total = 60 * hour + minute
-    hours = (total // 60) % 24
-    minut = total % 60
-    return [hours, minut]
+    return [(total // 60) % 24, total % 60]
 
 class Clock(object):
     def __init__(self, hour, minute):
