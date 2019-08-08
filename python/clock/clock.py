@@ -1,6 +1,6 @@
 def _time(hour, minute):
     total = 60 * hour + minute
-    hours = total // 60
+    hours = (total // 60) % 24
     minut = total % 60
     return [hours, minut]
 
@@ -12,18 +12,7 @@ class Clock(object):
     
     def __repr__(self):
         t = _time(self.h, self.m)
-        if t[0] < 10:
-            a = 0
-        else:
-            a =''
-        if t[1] < 10:
-            b = 0
-        else:
-            b =''
-
-        return "{}{}:{}{}".format(a, t[0], b, t[1])
-
- 
+        return "{:02d}:{:02d}".format(t[0], t[1])
 
 
     def __eq__(self, other):
