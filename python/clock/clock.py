@@ -16,13 +16,9 @@ class Clock(object):
         return self.__class__ == other.__class__ and self.h == other.h and self.m == other.m
 
     def __add__(self, minutes):
-        self.m += minutes
-        t = _time(self.h, self.m)
-        return "{:02d}:{:02d}".format(t[0], t[1])
+        return Clock(self.h, self.m+minutes)
     
     def __sub__(self, minutes):
-        m = self.m - minutes
-        self.m = _time(self.h, m)
-        return "{:02d}:{:02d}".format(self.h, self.m)
+        return Clock(self.h, self.m-minutes)
 
     
