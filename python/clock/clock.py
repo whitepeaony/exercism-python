@@ -5,27 +5,24 @@ def _time(hour, minute):
 
 class Clock(object):
     def __init__(self, hour, minute):
-        self.h = hour
-        self.m = minute
+        t = _time(hour, minute)
+        self.h = t[0]
+        self.m = t[1]
 
     def __repr__(self):
-        t = _time(self.h, self.m)
-        return "{:02d}:{:02d}".format(t[0], t[1])
+        return "{:02d}:{:02d}".format(self.h, self.m)
 
     def __eq__(self, other):
-        s = _time(self.h, self.m)
-        o = _time(other.h, other.m)
-        return s[0] == o[0] and s[1] == o[1]
+        return self.__class__ == other.__class__ and self.h == other.h and self.m == other.m
 
     def __add__(self, minutes):
         self.m += minutes
         t = _time(self.h, self.m)
         return "{:02d}:{:02d}".format(t[0], t[1])
-
+    
     def __sub__(self, minutes):
-        self.m -= minutes
-        t = _time(self.h, self.m)
-        return "{:02d}:{:02d}".format(t[0], t[1])
+        m = self.m - minutes
+        self.m = _time(self.h, m)
+        return "{:02d}:{:02d}".format(self.h, self.m)
 
-
-print(Clock(2, 20))
+    
