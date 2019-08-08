@@ -5,9 +5,7 @@ def _time(hour, minute):
 
 class Clock(object):
     def __init__(self, hour, minute):
-        t = _time(hour, minute)
-        self.h = t[0]
-        self.m = t[1]
+        self.h, self.m = _time(hour, minute)
 
     def __repr__(self):
         return "{:02d}:{:02d}".format(self.h, self.m)
