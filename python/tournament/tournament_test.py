@@ -1,9 +1,75 @@
 import unittest
 
-from tournament import tally
+from tournament import Results, tally
 
 # Tests adapted from `problem-specifications//canonical-data.json` @ v1.4.0
 
+class ResultsTest(unittest.TestCase):
+    def test_repr_length(self):
+        r = Results('team')
+        assert len(str(r)) == len(Results.header_string())
+    
+    def test_add_draw(self):
+        r = Results('team')
+        r.add_draw()
+        r.add_draw()
+        assert r.matches_drawn == 2
+
+    def test_add_loss(self):
+        r = Results('team')
+        r.add_loss()
+        r.add_loss()
+        assert r.matches_lost == 2
+
+    def test_add_win(self):
+        r = Results('team')
+        r.add_win()
+        r.add_win()
+        assert r.matches_won == 2
+
+    def test_matches_played(self):
+        r = Results('team')
+        r.add_draw()
+        r.add_win()
+        r.add_loss()
+        assert r.matches_played() == 3
+
+    def test_matches_played_double(self):
+        r = Results('team')
+        r.add_draw()
+        r.add_draw()
+        assert r.matches_played() == 2
+
+    def test_points(self):
+        r = Results('team')
+        r.add_draw()
+        assert r.points() == 1
+        r.add_win()
+        assert r.points() == 4
+        r.add_loss()
+        assert r.points() == 4
+
+    def test_points_double(self):
+        r = Results('team')
+        r.add_draw()
+        r.add_draw()
+        assert r.points() == 2
+    
+    def test_le_points(self):
+        a = Results('a')
+        b = Results('b')
+        b.add_win()
+        assert a < b
+
+    def test_le_name(self):
+        a = Results('a')
+        b = Results('b')
+        assert b < a
+        b.add_win()
+        assert a < b
+        a.add_win()
+        assert b < a
+        
 
 class TournamentTest(unittest.TestCase):
     def test_just_the_header_if_no_input(self):
