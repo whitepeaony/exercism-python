@@ -23,6 +23,19 @@ def _italicisation(markdown):
     a = italics.sub('<em>', _boldness(markdown), count=1 )
     return italics.sub('</em>', a, count=1)
 
+def _bullet(markdown):
+    m = re.compile(r'*')
+    n = re.compile(r'\n*')
+    if m.match(_italicisation(markdown)):
+        bull = m.sub('<ul><li>', _italicisation(markdown), count=1) + '</li></ul>'
+        if n.match(bull):
+            return print(n.split(bull))
 
-print(_italicisation("# Header!\n* __Bold Item__\n* _Italic Item_"))
+    else:
+        bull = m.sub('<p>', _italicisation(markdown), count=1)
+        return bull + '<p>' 
+
+
+
+print(_bullet("* Item 1\n* Item 2"))
     
