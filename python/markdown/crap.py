@@ -19,16 +19,23 @@ def _italicisation(line: str) -> str:
     return re.sub('_(.+?)_', '<em>\1</em>', line)
    
 def _bullet(line: str, inlist: bool ) -> (str, bool):
-    m = re.compile(r'*')
-    n = re.compile(r'\n*')
-    if m.match(_italicisation(line)):
-        bull = m.sub('<ul><li>', _italicisation(line), count=1) + '</li></ul>'
-        if n.match(bull):
-            return print(n.split(bull))
+    m = re.match(r' *\* +(.*)', line)
+    if m and inlist:
+        return "<li>{}</li>".format(m.group(1)), True
 
-    else:
-        bull = m.sub('<p>', _italicisation(line), count=1)
-        return bull + '</p>' 
+    elif m and not inlist:
+        return "<ul><li>{}</li>".format(m.group(1)), True
+
+    elif not m and inlist:
+        return "</ul>{}".format(line), False
+
+    elif not m and not inlist:
+        return line, False
+
+def _paragraph(line, status):
+    pass
+
+
 
 def parse(markdown: str) -> str:
     lines = markdown.split('\n')
