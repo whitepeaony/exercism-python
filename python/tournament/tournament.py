@@ -26,7 +26,7 @@ class Results(object):
         pass
         return 0
 
-    def __le__(self, other) -> bool:
+    def __lt__(self, other) -> bool:
         # compare with other Results based on points,
         # breaking ties with alphabetical order of names
         pass
@@ -35,7 +35,7 @@ class Results(object):
     _repr_str = "{:30} | {:>2} | {:>2} | {:>2} | {:>2} | {:>2}"
     
     def __repr__(self):
-        return _repr_str.format(self.name, self.points(),
+        return self._repr_str.format(self.name, self.points(),
             self.matches_won, self.matches_drawn,
             self.matches_lost, self.matches_played())
 

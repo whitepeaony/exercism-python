@@ -55,13 +55,13 @@ class ResultsTest(unittest.TestCase):
         r.add_draw()
         assert r.points() == 2
     
-    def test_le_points(self):
+    def test_lt_points(self):
         a = Results('a')
         b = Results('b')
         b.add_win()
         assert a < b
 
-    def test_le_name(self):
+    def test_lt_name(self):
         a = Results('a')
         b = Results('b')
         assert b < a
