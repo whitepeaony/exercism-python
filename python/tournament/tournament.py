@@ -35,9 +35,9 @@ class Results(object):
     _repr_str = "{:30} | {:>2} | {:>2} | {:>2} | {:>2} | {:>2}"
     
     def __repr__(self):
-        return self._repr_str.format(self.name, self.points(),
+        return self._repr_str.format(self.name, self.matches_played(),
             self.matches_won, self.matches_drawn,
-            self.matches_lost, self.matches_played())
+            self.matches_lost, self.points())
 
     @staticmethod
     def header_string():
@@ -46,7 +46,7 @@ class Results(object):
 
 def tally(rows):
     teams = {} # str (name) -> Results
-    for r in rows:  # preprocessing needed
+    for row in rows:
         pass
     result = [Results.header_string()]
     for t in sorted(teams.values(), reverse=True):
