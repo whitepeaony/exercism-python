@@ -1,40 +1,40 @@
 import re
 
-def _parse(markdown):
-    lines = markdown.split('\n')
-    text = ''
-    for l in lines:
-        newline = ''
-        for n in range(0, 7):
-            if re.match('#' * n, l):
-                newline = l.replace('#' * n + ' ',  "<h{}>".format(n)) + "</h{}>".format(n)
-            else: 
-                newline = l
-        text += newline
-    return text
 
-def _boldness(markdown):
+def _headers(line: str) -> str:
+    for n in range(0, 7):
+        if re.match('#' * n, line):
+            newline = line.replace('#' * n + ' ',  "<h{}>".format(n)) + "</h{}>".format(n)
+        else: 
+            newline = line
+    return newline
+
+def _boldness(line: str) -> str:
     bold = re.compile('__')
-    a = bold.sub('<strong>', _parse(markdown), count=1 )
+    a = bold.sub('<strong>', _headers(line), count=1 )
     return bold.sub('</strong>', a, count=1)
 
-def _italicisation(markdown):
+def _italicisation(line: str) -> str:
     italics = re.compile('_')
-    a = italics.sub('<em>', _boldness(markdown), count=1 )
+    a = italics.sub('<em>', _boldness(line), count=1 )
     return italics.sub('</em>', a, count=1)
 
-def _bullet(markdown):
+def _bullet(line: str, inlist: bool ) -> (str, bool):
     m = re.compile(r'*')
     n = re.compile(r'\n*')
-    if m.match(_italicisation(markdown)):
-        bull = m.sub('<ul><li>', _italicisation(markdown), count=1) + '</li></ul>'
+    if m.match(_italicisation(line)):
+        bull = m.sub('<ul><li>', _italicisation(line), count=1) + '</li></ul>'
         if n.match(bull):
             return print(n.split(bull))
 
     else:
-        bull = m.sub('<p>', _italicisation(markdown), count=1)
-        return bull + '<p>' 
+        bull = m.sub('<p>', _italicisation(line), count=1)
+        return bull + '</p>' 
 
+def parse(markdown: str) -> str:
+    lines = markdown.split('\n')
+    
+    pass
 
 
 print(_bullet("* Item 1\n* Item 2"))
