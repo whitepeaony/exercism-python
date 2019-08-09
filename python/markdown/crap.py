@@ -1,13 +1,12 @@
 import re
 
-
-def _headers(line: str) -> str: 
+def _headers(line: str) -> (str, bool): 
     m =re.match('(?P<level>#+) +(?P<header>.*)', line)
     if m:
         n = len(m.group('level'))
-        return "<h{}>{}</h{}>".format(n, m.group('header'), n)
+        return "<h{}>{}</h{}>".format(n, m.group('header'), n), True
     else: 
-        return line
+        return line, False
 
 def _boldness(line: str) -> str:
     return re.sub('__(.+?)__', '<strong>\1</strong>', line)
@@ -32,8 +31,8 @@ def _bullet(line: str, inlist: bool ) -> (str, bool):
     elif not m and not inlist:
         return line, False
 
-def _paragraph(line, status):
-    pass
+def _paragraph(line):
+    return '<p>{}</p>'.format(line)
 
 
 
