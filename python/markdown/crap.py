@@ -1,6 +1,6 @@
 import re
 
-def parse(markdown):
+def _parse(markdown):
     lines = markdown.split('\n')
     text = ''
     for l in lines:
@@ -13,10 +13,16 @@ def parse(markdown):
         text += newline
     return text
 
-def boldness(markdown):
+def _boldness(markdown):
     bold = re.compile('__')
-    a = bold.sub('<strong>', parse(markdown), count=1 )
+    a = bold.sub('<strong>', _parse(markdown), count=1 )
     return bold.sub('</strong>', a, count=1)
 
-print(boldness("__This will be bold__"))
+def _italicisation(markdown):
+    italics = re.compile('_')
+    a = italics.sub('<em>', _boldness(markdown), count=1 )
+    return italics.sub('</em>', a, count=1)
+
+
+print(_italicisation("# Header!\n* __Bold Item__\n* _Italic Item_"))
     
