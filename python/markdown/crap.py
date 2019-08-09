@@ -8,38 +8,44 @@ def _headers(line: str) -> (str, bool):
     else: 
         return line, False
 
-def _boldness(line: str) -> str:
+def _bold(line: str) -> str:
     return re.sub('__(.+?)__', '<strong>\1</strong>', line)
 
-def _italicisation(line: str) -> str:
+def _italic(line: str) -> str:
     '''
     Run after _boldness, to avoid confusiuon with double underline
     '''
     return re.sub('_(.+?)_', '<em>\1</em>', line)
    
-def _bullet(line: str, inlist: bool ) -> (str, bool):
+def _bullet(line: str) -> (str, bool):
     m = re.match(r' *\* +(.*)', line)
-    if m and inlist:
+    if m:
         return "<li>{}</li>".format(m.group(1)), True
-
-    elif m and not inlist:
-        return "<ul><li>{}</li>".format(m.group(1)), True
-
-    elif not m and inlist:
-        return "</ul>{}".format(line), False
-
-    elif not m and not inlist:
+    else:
         return line, False
 
 def _paragraph(line):
     return '<p>{}</p>'.format(line)
 
 
-
 def parse(markdown: str) -> str:
     lines = markdown.split('\n')
     result = ''
+    inlist = False
+
     for l in lines:
-        result += _headers(l)
+        a, b = _headers(l)
+        if b:
+            result += a
+            continue
+        c, d = _bullet(l)
+
+        
+        
+        
+        
+        _bullet(_italic(_bold(l)), inlist)
+            result += c
+        
     return result
     
