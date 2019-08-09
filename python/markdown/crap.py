@@ -1,13 +1,13 @@
 import re
 
 
-def _headers(line: str) -> str:
-    for n in range(0, 7):
-        if re.match('#' * n, line):
-            newline = line.replace('#' * n + ' ',  "<h{}>".format(n)) + "</h{}>".format(n)
-        else: 
-            newline = line
-    return newline
+def _headers(line: str) -> str: 
+    m =re.match('(?P<level>#+) +(?P<header>.*)', line)
+    if m:
+        n = len(m.group('level'))
+        return "<h{}> {} </h{}>".format(n, m.group('header'), n)
+    else: 
+        return line
 
 def _boldness(line: str) -> str:
     bold = re.compile('__')
@@ -35,7 +35,4 @@ def parse(markdown: str) -> str:
     lines = markdown.split('\n')
     
     pass
-
-
-print(_bullet("* Item 1\n* Item 2"))
     
