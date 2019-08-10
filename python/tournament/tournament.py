@@ -34,8 +34,7 @@ class Results(object):
     def __lt__(self, other) -> bool:
         # compare with other Results based on points,
         # breaking ties with alphabetical order of names
-        pass
-        return True 
+        return Results.points(self) < Results.points(other) 
         
     _repr_str = "{:30} | {:>2} | {:>2} | {:>2} | {:>2} | {:>2}"
     
@@ -57,29 +56,35 @@ def tally(rows):
         score = row.split(';')[2]
 
         if score == 'win':
-            Results(row.split(';')[0]).add_win()
-            Results(row.split(';')[1]).add_loss()
-            teams[row.split(';')[0]] = Results(row.split(';')[0])
-            teams[row.split(';')[1]] = Results(row.split(';')[1])
+            team1 = Results(row.split(';')[0])
+            team2 = Results(row.split(';')[1])
+            team1.add_win()
+            team2.add_loss()
+            teams[row.split(';')[0]] = team1
+            teams[row.split(';')[1]] = team2
 
         elif score == 'loss':
-            Results(row.split(';')[0]).add_loss()
-            Results(row.split(';')[1]).add_win()
-            teams[row.split(';')[0]] = Results(row.split(';')[0])
-            teams[row.split(';')[1]] = Results(row.split(';')[1])
+            team1 = Results(row.split(';')[0])
+            team2 = Results(row.split(';')[1])
+            team1.add_loss()
+            team2.add_win()
+            teams[row.split(';')[0]] = team1
+            teams[row.split(';')[1]] = team2
 
         elif score == 'draw':
-            Results(row.split(';')[0]).add_draw()
-            Results(row.split(';')[1]).add_draw()
-            teams[row.split(';')[0]] = Results(row.split(';')[0])
-            teams[row.split(';')[1]] = Results(row.split(';')[1])
+            team1 = Results(row.split(';')[0])
+            team2 = Results(row.split(';')[1])
+            team1.add_draw()
+            team2.add_draw()
+            teams[row.split(';')[0]] = team1
+            teams[row.split(';')[1]] = team2
 
 
     result = [Results.header_string()]
 
     for t in sorted(teams.values(), reverse=True):
         result.append(str(t))
-    return teams
+    return result
 
-results = ["Allegoric Alaskans;Blithering Badgers;win"]
-print(tally(results))
+#results = ["Allegoric Alaskans;Blithering Badgers;win"]
+#print(tally(results))
