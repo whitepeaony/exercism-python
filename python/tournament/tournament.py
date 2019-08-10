@@ -57,20 +57,20 @@ def tally(rows):
         score = row.split(';')[2]
 
         if score == 'win':
-            Results(row.split(';')[0]).add_win
-            Results(row.split(';')[1]).add_loss
+            Results(row.split(';')[0]).add_win()
+            Results(row.split(';')[1]).add_loss()
             teams[row.split(';')[0]] = Results(row.split(';')[0])
             teams[row.split(';')[1]] = Results(row.split(';')[1])
 
         elif score == 'loss':
-            Results(row.split(';')[0]).add_loss
-            Results(row.split(';')[1]).add_win
+            Results(row.split(';')[0]).add_loss()
+            Results(row.split(';')[1]).add_win()
             teams[row.split(';')[0]] = Results(row.split(';')[0])
             teams[row.split(';')[1]] = Results(row.split(';')[1])
 
         elif score == 'draw':
-            Results(row.split(';')[0]).add_draw
-            Results(row.split(';')[1]).add_draw
+            Results(row.split(';')[0]).add_draw()
+            Results(row.split(';')[1]).add_draw()
             teams[row.split(';')[0]] = Results(row.split(';')[0])
             teams[row.split(';')[1]] = Results(row.split(';')[1])
 
@@ -79,4 +79,7 @@ def tally(rows):
 
     for t in sorted(teams.values(), reverse=True):
         result.append(str(t))
-    return result
+    return teams
+
+results = ["Allegoric Alaskans;Blithering Badgers;win"]
+print(tally(results))
