@@ -1,6 +1,6 @@
 class Results(object):
     # A class used to store and compare teams results
-    # through the tournament. Attributes can be changed
+    # throughout the tournament. Attributes can be changed
     # with add_ methods. String representation generates
     # a table row for output. Implementation of < operator
     # allows sorting by points (and breaking ties by name).
@@ -11,20 +11,25 @@ class Results(object):
         self.matches_lost = 0
     
     def matches_played(self):
-        pass
+        return self.matches_won + self.matches_drawn + self.matches_lost
 
     def add_win(self):
-        pass
+        self.matches_won += 1
+
 
     def add_draw(self):
-        pass
+        self.matches_drawn += 1
 
     def add_loss(self):
-        pass
+        self.matches_lost += 1
 
     def points(self):
-        pass
-        return 0
+        points = 0
+        matches = [self.matches_won, self.matches_drawn, self.matches_lost]
+        point = [3, 1, 0]
+        for match, p in zip(matches, point):
+            points += match * p 
+        return points
 
     def __lt__(self, other) -> bool:
         # compare with other Results based on points,
@@ -46,9 +51,32 @@ class Results(object):
 
 def tally(rows):
     teams = {} # str (name) -> Results
+
     for row in rows:
-        pass
+
+        score = row.split(';')[2]
+
+        if score == 'win':
+            Results(row.split(';')[0]).add_win
+            Results(row.split(';')[1]).add_loss
+            teams[row.split(';')[0]] = Results(row.split(';')[0])
+            teams[row.split(';')[1]] = Results(row.split(';')[1])
+
+        elif score == 'loss':
+            Results(row.split(';')[0]).add_loss
+            Results(row.split(';')[1]).add_win
+            teams[row.split(';')[0]] = Results(row.split(';')[0])
+            teams[row.split(';')[1]] = Results(row.split(';')[1])
+
+        elif score == 'draw':
+            Results(row.split(';')[0]).add_draw
+            Results(row.split(';')[1]).add_draw
+            teams[row.split(';')[0]] = Results(row.split(';')[0])
+            teams[row.split(';')[1]] = Results(row.split(';')[1])
+
+
     result = [Results.header_string()]
+
     for t in sorted(teams.values(), reverse=True):
         result.append(str(t))
     return result
