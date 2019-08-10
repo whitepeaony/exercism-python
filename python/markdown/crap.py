@@ -38,14 +38,16 @@ def parse(markdown: str) -> str:
         if b:
             result += a
             continue
-        c, d = _bullet(l)
-
-        
-        
-        
-        
-        _bullet(_italic(_bold(l)), inlist)
-            result += c
-        
+        c, d = _bullet(_italic(_bold(l)))
+        if d:
+            if inlist == False:
+                inlist = True
+                result += "<ul>{}".format(c)
+        if not d:
+            if inlist == True:
+                inlist = False
+                result += "{}</ul>".format(c)
+            if inlist == False:
+                result += _paragraph(c)
     return result
     
