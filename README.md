@@ -31,11 +31,35 @@ git clone https://github.com/whitepeaony/exercism-python.git
 cd exercism-python
 ```
 or using GitKraken.
+### Install python
+```PowerShell
+scoop bucket add versions
+scoop install python37
+pip install pipenv
+```
 ### Add dependencies
 In PowerShell:
 ```PowerShell
 cd exercism-python
 pipenv shell
-pipenv install pandas black pytest flake8 jupyter
+pipenv install
+```
+### Manage dependencies
+Install a new package:
+```PowerShell
+pipenv install my-package
+```
+Update individual packages or all packages:
+```PowerShell
+pipenv update --outdated
+pipevn update my-package
+pipenv update
+```
+Resolve dependencies and write the current setup to Pipfile.lock for reproducibility.
+```
 pipenv lock
+```PowerShell
+In case or errors with pre-release packages (like black):
+```PowerShell
+pipenv lock --pre
 ```
